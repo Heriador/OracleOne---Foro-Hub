@@ -1,5 +1,6 @@
 package com.OracleOne.ForoHub.domain.service;
 
+import com.OracleOne.ForoHub.domain.dto.request.ActualizarTopico;
 import com.OracleOne.ForoHub.domain.dto.request.CrearTopico;
 import com.OracleOne.ForoHub.domain.entity.Topico;
 import com.OracleOne.ForoHub.domain.exceptions.TopicoAlreadyExistsException;
@@ -40,5 +41,27 @@ public class TopicoService {
 
     public Topico getTopico(Long id) {
         return topicoRepository.findById(id).orElseThrow(() -> new TopicoNotFoundException("Topico no encontrado"));
+    }
+
+    public Topico actualizarTopico(Long id, ActualizarTopico actualizarTopico) {
+
+        Topico topico = topicoRepository.findById(id).orElseThrow(() -> new TopicoNotFoundException("Topico no encontrado"));
+
+        if(actualizarTopico.getTitulo() != null){
+            topico.setTitulo(actualizarTopico.getTitulo());
+        }
+
+        if(actualizarTopico.getMensaje() != null){
+            topico.setMensaje(actualizarTopico.getMensaje());
+        }
+
+        topicoRepository.save(topico);
+
+        return topico;
+    }
+
+    public void eliminarTopico(Long id) {
+        Topico topico = topicoRepository.findById(id).orElseThrow(() -> new TopicoNotFoundException("Topico no encontrado"));
+        topicoRepository.delete(topico);
     }
 }
