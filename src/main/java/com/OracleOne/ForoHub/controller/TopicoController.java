@@ -1,14 +1,14 @@
 package com.OracleOne.ForoHub.controller;
 
 import com.OracleOne.ForoHub.domain.dto.request.CrearTopico;
+import com.OracleOne.ForoHub.domain.dto.response.MostrarTopico;
 import com.OracleOne.ForoHub.domain.service.TopicoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/topicos")
@@ -22,6 +22,12 @@ public class TopicoController {
         topicoService.crearTopico(crearTopico);
         return ResponseEntity.ok(crearTopico);
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MostrarTopico>> listarTopicos(){
+        List<MostrarTopico> topicoList = topicoService.listarTopicos().stream().map(MostrarTopico::new).toList();
+        return ResponseEntity.ok(topicoList);
     }
 
 }
