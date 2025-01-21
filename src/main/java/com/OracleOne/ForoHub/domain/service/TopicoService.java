@@ -3,6 +3,7 @@ package com.OracleOne.ForoHub.domain.service;
 import com.OracleOne.ForoHub.domain.dto.request.CrearTopico;
 import com.OracleOne.ForoHub.domain.entity.Topico;
 import com.OracleOne.ForoHub.domain.exceptions.TopicoAlreadyExistsException;
+import com.OracleOne.ForoHub.domain.exceptions.TopicoNotFoundException;
 import com.OracleOne.ForoHub.domain.repository.ITopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,4 +38,7 @@ public class TopicoService {
     }
 
 
+    public Topico getTopico(Long id) {
+        return topicoRepository.findById(id).orElseThrow(() -> new TopicoNotFoundException("Topico no encontrado"));
+    }
 }

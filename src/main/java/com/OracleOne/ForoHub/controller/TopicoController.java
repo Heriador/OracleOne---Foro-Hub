@@ -30,4 +30,9 @@ public class TopicoController {
         return ResponseEntity.ok(topicoList);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<MostrarTopico> getTopico(@PathVariable Long id){
+        return ResponseEntity.ok(new MostrarTopico(topicoService.getTopico(id)));
+    }
+
 }
