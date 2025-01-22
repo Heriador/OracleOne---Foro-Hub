@@ -20,8 +20,8 @@ public class Respuesta {
     @JoinColumn(name = "topico_id", nullable = false)
     private Topico topico;
 
-    @Column
-    private LocalDateTime fechaDeCreacionRespuesta;
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
 
 }
